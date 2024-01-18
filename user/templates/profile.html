@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %} 
+
+{%load crispy_forms_tags %}  
+<div class="profile-section d-flex justify-content-center align-items-center p-2">
+  <div class="profile-img w-25">
+    <img class='ps-5 w-100' src="{% static 'profile-img-1.jpg' %}" alt="">
+    <h4 class='text-center'><strong>Profile Page of {{user}}</strong></h4>
+  </div>
+  <div class="profile-data w-75">
+    <form style = "width: 50% ; margin: auto;" method='post' novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+      {% for er in form.non_field_errors %}
+        <p class="bg-danger text-white p-3">{{er}} </p>
+      {% endfor %}
+      {% endif %}
+      <!--{{ form | crispy }} -->
+      {% for fm in form %}
+      {{fm.label_tag}}
+      {{fm}}
+      {{fm.errors | striptags}}
+      {% endfor %}
+      <br/>
+    
+      <button type="submit" class="btn btn-primary">Change</button>
+    </form>
+  </div>
+</div>
+<hr>
+  <h2 class="text-center"><strong>My Buying History</strong></h2>
+
+  <div class="d-flex flex-wrap m-4">
+
+    {% for his in history %}
+    <div class="card m-3" style="width: 18rem;">
+        <div class="card-body" style="background:#F7D6E6; border-radius: 10px;">
+          <h5 class="card-title">Title: {{his.title}}</h5>
+          <p class="card-title">Quantity: {{his.quantity}}</p>
+          <p class="card-title">Buying Date: {{his.date}}</p>
+          {% if his.order_status == 'Pending' %}
+          <p>Order Status: <button class="card-title btn btn-danger">Pending</button></p>
+          {% else %}
+          
+          <p>Order Status: <button class="card-title btn btn-success">Complited</button></p>
+          {% endif %}
+          <p class="card-title">Buyer Name: {{his.user.username}}</p>
+          <a href="{% url "details_flower" his.flower_id %}" class="btn btn-primary">More Details</a>
+        </div>
+      </div>
+    {% endfor %}
+
+</div>
+{% endblock  %}

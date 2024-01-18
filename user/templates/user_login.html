@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{%load crispy_forms_tags %} 
+
+<div class="profile-section d-flex justify-content-center align-items-center p-2" style="height:80vh;">
+  <div class="profile-img w-50">
+    <img class='ps-5' style="width: 90%;" src="{% static 'login-img-1.webp' %}" alt="">
+    
+  </div>
+  <div class="profile-data w-50">
+    <form style = "width: 70% ; margin: auto;" method='post' novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}
+      {% for er in form.non_field_errors %}
+        <p class="bg-danger text-white p-3">{{er}} </p>
+      {% endfor %}
+      {% endif %}
+      <!--{{ form | crispy }} -->
+      {% for fm in form %}
+      {{fm.label_tag}}
+      {{fm}}
+      {{fm.errors | striptags}}
+      {% endfor %}
+      <br/>
+    
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    
+  </div>
+</div>
+
+{% endblock %}

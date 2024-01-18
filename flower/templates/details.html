@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{%load crispy_forms_tags %}  
+{% block content %}
+
+<div class="d-flex justify-content-center align-items-center">
+  <div class="ms-5 mt-5 mb-5 w-50">
+      <img src="{{flower.image.url}}" alt=""  alt="..." style="width: 87%;" >
+  </div>
+  <div class="me-5 mt-5 mb-3 w-50">
+      <h2>Title: {{flower.title}}</h2>
+      <h3>Deccription:</h3>
+      <p>{{flower.descriptions}}</p>
+      <h5>Quantaty: {{flower.quantity}}</h5>
+      <h5>Price: {{flower.price}}$</h5>
+      
+        <small ><strong> Catagories : <button class="btn btn-warning btn-sm " disabled>
+        {{flower.category.color}}</button></strong></small>
+      
+  
+  </div>
+ </div>
+    {% if user.is_authenticated %}
+      {% comment %} {% url "borrow_book" book.id %} {% endcomment %}
+      <div class="buy_btn ms-5 me-5 mb-4">
+        <a class="nav-link btn btn-info text-dark" href="{% url "buy_flower" flower.id %}"><strong>Buy Now</strong></a>
+      </div>
+      {% endif %}
+
+{% endblock %}
