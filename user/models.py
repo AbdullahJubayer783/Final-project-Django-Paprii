@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User 
 ORDER_STATUS = [
-    ('Complited','Complited'),
+    ('Completed','Completed'),
     ('Pending','Pending'),
 ]
 class OrderDetails(models.Model):

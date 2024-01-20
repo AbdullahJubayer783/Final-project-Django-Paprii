@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Admin Dashboard</title>
+{% endblock  %}
+{% block content %}
+<h3><strong>Admin Dashboard</strong></h3>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Buying Date</th>
+        <th scope="col">Order Status</th>
+        <th scope="col">Buyer Name</th>
+        <th scope="col">Make Order Complited</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for ord in object_list %}
+      <tr>
+        <th scope="row">{{ord.title}}</th>
+        <td>{{ord.quantity}}</td>
+        <td>{{ord.date}}</td>
+        {% if ord.order_status == 'Pending' %}
+        <td><button class="card-title btn btn-danger" disabled>Pending</button></td>
+        {% else %}
+        <td> <button class="card-title btn btn-success" disabled>Complited</button></td>
+        {% endif %}
+        <td>{{ord.user.username}}</td>
+        {% if ord.order_status == 'Pending' %}
+        <td><a class="btn btn-outline-success btn-warning text-decoration-none text-dark" href="{% url "order_complited" ord.id %}"><strong>Make Complited</strong></a></td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+
+
+{% endblock %}
