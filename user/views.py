@@ -62,7 +62,7 @@ class UserLoginView(LoginView):
 class UserLogoutview(LogoutView):
     def get_success_url(self):
         if self.request.user.is_authenticated:
-            logout(self.request)
+            logout(self.request,self.request.user)
         return redirect("home")
 
 class UserProfileView(UpdateView):
